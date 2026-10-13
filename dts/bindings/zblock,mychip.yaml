@@ -1,0 +1,8 @@
+description: "This is a YAML file built for understanding the Zephyr Device Drivers"
+
+compatible: "zblock,mychip"
+
+properties: 
+  my-value:
+    type: int
+    required: true

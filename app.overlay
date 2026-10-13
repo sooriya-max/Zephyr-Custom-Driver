@@ -1,0 +1,8 @@
+/{  //Tree strucuture
+    mychippp: mychip //mychippp is the label and the other ones are name and address 
+    {
+        compatible = "zblock,mychip";  //compatible is what zephyr uses to match my driver to the one in the c file
+        status = "okay";                //Chip is enabled
+        my-value = <42>;
+    };
+};
