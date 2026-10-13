@@ -1,4 +1,5 @@
 #define DT_DRV_COMPAT zblock_mychip
+#define MYCHIP_CHIP_ID 0x5A
 
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
@@ -35,10 +36,22 @@ static DEVICE_API(sensor, mychip_api) = {
     .channel_get  = mychip_channel_get,
 };
 
+static int mychip_read_id(const struct device *dev)
+{
+   /* a real driver would read a bus register here */
+   return 0x5A;
+}
+
 static int mychip_init(const struct device *dev)
 {
     const struct mychip_config *cfg = dev->config;
     struct mychip_data *dta = dev -> data;
+
+    int id = mychip_read_id(dev);
+    if (id != MYCHIP_CHIP_ID) {
+        printk("mychip: wrong chip id 0x%02x\n", id);
+        return -EIO;
+    }
 
     dta -> init_count ++;
     printk("My Chip Just Ran %s, my_value = %u, my_data = %d\n", dev->name, cfg->my_value, dta -> init_count);

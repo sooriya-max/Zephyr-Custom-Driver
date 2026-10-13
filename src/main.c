@@ -22,6 +22,12 @@ int main(void)
     }
     printk("MyChip is Ready\n");
 
+    struct sensor_value val;
+
+    sensor_sample_fetch(chip);
+    sensor_channel_get(chip, SENSOR_CHAN_ACCEL_X, &val);
+    printk("sample = %d\n", val.val1);
+
     printk("main started\n");
     return 0;
 }
